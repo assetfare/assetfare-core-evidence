@@ -13,8 +13,10 @@ of this repository:
 
 - Safety bundle: <https://api.assetfare.dev/.well-known/assetfare-safety.json>
 - Signed binding manifest: <https://api.assetfare.dev/.well-known/assetfare-manifest.json>
-- Independent verifier: <https://github.com/odaiin/assetfare-mcp/blob/main/scripts/assetfare-verify.mjs>
+- Independent verifier: <https://github.com/assetfare/assetfare-mcp/blob/main/scripts/assetfare-verify.mjs>
 - On-chain evidence: <https://assetfare.dev/evidence/>
+- Immutable evidence/SBOM release with GitHub build-provenance attestations:
+  <https://github.com/assetfare/assetfare-core-evidence/releases/tag/v1.0.0>
 
 ## Reproduce
 
