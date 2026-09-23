@@ -1,0 +1,50 @@
+name: Reproduce and attest evidence
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  attestations: write
+
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Recompile exact artifacts
+        run: |
+          node compile_source_only_cctp_executor_v2.mjs
+          node compile_exact_one_bps_executors.mjs
+          node compile_destination_executor_v3.mjs
+          git diff --exit-code -- artifacts/
+      - name: Generate executable evidence and SBOM
+        run: |
+          node agent_safety_invariants_preflight.mjs > agent-safety-evidence.json
+          npm sbom --omit=dev --sbom-format cyclonedx > agent-safety-sbom.cdx.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: assetfare-core-evidence-${{ github.sha }}
+          path: |
+            agent-safety-evidence.json
+            agent-safety-sbom.cdx.json
+          if-no-files-found: error
+          retention-days: 90
+      - uses: actions/attest-build-provenance@e8998f949152b193b063cb0ec769d69d929409be # v2.4.0
+        with:
+          subject-path: agent-safety-evidence.json
+      - uses: actions/attest-build-provenance@e8998f949152b193b063cb0ec769d69d929409be # v2.4.0
+        with:
+          subject-path: agent-safety-sbom.cdx.json
