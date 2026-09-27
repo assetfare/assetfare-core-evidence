@@ -6,6 +6,14 @@ can verify source hashes, rebuild artifacts, inspect executable invariants, and
 compare expected runtime code with the chain independently of the private API
 backend.
 
+The current Ethereum/HyperEVM expansion executor is
+`AssetFareExpansionCctpExecutorV2`. It deliberately contains no economic
+amount floor: the public API's route-specific economics are non-enforcing
+guidance, while the contract retains exact-1bp arithmetic, bounded CCTP fees,
+fixed source domains/destinations, zero retained allowance/balance, and no
+owner, upgrade, rescue, signing, or submission surface. The V1 file remains
+only as historical build evidence and is not a current deployment pin.
+
 This repository is project-authored evidence. It is **not** an independent
 third-party audit, formal proof, or guarantee that no unknown defect exists.
 The canonical signed evidence bundle publishes limitations and the exact commit

@@ -11,15 +11,14 @@ import solc from 'solc';
 const ROOT = new URL('./', import.meta.url);
 const COMPILER = '0.8.30+commit.73712a01.Emscripten.clang';
 const SPECS = {
-  AssetFareExpansionCctpExecutorV1: {
+  AssetFareExpansionCctpExecutorV2: {
     functions: ['FEE_RECIPIENT','FORWARD_EXISTING_RECIPIENT','FORWARD_SETUP_HEAD','MAX_DEADLINE_WINDOW','ROUTE_FEE_BPS','SOURCE_DOMAIN','TOKEN_MESSENGER','USDC','bridgeUSDC'],
     feeExpression: /routeFee=amountIn\/10_000/,
     invariants: [
       /\(block\.chainid==1&&sourceDomain==0\)\|\|\(block\.chainid==999&&sourceDomain==19\)/,
       /destinationDomain==5\|\|destinationDomain==6/,
-      /amountIn>=\(SOURCE_DOMAIN==0\|\|destinationDomain==5\?500_000_000:250_000_000\)/,
       /routeFee=amountIn\/10_000;burnUSDC=amountIn-routeFee/,
-      /maxCctpFee<=5_000_000&&maxCctpFee<=burnUSDC\/20/,
+      /routeFee>0&&burnUSDC>maxCctpFee&&maxCctpFee<=5_000_000/,
       /_approve\(address\(TOKEN_MESSENGER\),0\)/,
       /USDC\.balanceOf\(address\(this\)\)==beforeBalance/,
     ],

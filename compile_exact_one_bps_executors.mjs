@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import solc from 'solc';
 
-const names=['AssetFareDirectSwapExecutorV2','AssetFareDirectCctpExecutorV2','AssetFareDirectUsdgOftExecutorV2','AssetFareExpansionCctpExecutorV1'];
+const names=['AssetFareDirectSwapExecutorV2','AssetFareDirectCctpExecutorV2','AssetFareDirectUsdgOftExecutorV2','AssetFareExpansionCctpExecutorV1','AssetFareExpansionCctpExecutorV2'];
 const sources=Object.fromEntries(names.map(name=>[`${name}.sol`,{content:fs.readFileSync(new URL(`./contracts/${name}.sol`,import.meta.url),'utf8')}]))
 const input={language:'Solidity',sources,settings:{optimizer:{enabled:true,runs:200},outputSelection:{'*':{'*':['abi','evm.bytecode.object','evm.deployedBytecode.object']}}}};
 const output=JSON.parse(solc.compile(JSON.stringify(input))),errors=(output.errors??[]).filter(row=>row.severity==='error');
