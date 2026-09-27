@@ -1,6 +1,6 @@
 # AssetFare execution-core evidence
 
-This public repository is a minimal, reproducible snapshot of the five unique
+This public repository is a minimal, reproducible snapshot of the six unique
 Solidity executor implementations deployed by AssetFare. It exists so an agent
 can verify source hashes, rebuild artifacts, inspect executable invariants, and
 compare expected runtime code with the chain independently of the private API
