@@ -27,15 +27,22 @@
     "solc": "0.8.30"
   },
   "overrides": {
+    "@coral-xyz/anchor": {
+      "toml": "5.0.0"
+    },
     "@ethersproject/providers": {
       "ws": "8.22.0"
     },
+    "axios": "1.20.0",
     "ethers": {
       "ws": "8.22.0"
     },
     "jayson": {
       "uuid": "11.1.1",
       "ws": "8.22.0"
+    },
+    "solc": {
+      "tmp": "0.2.7"
     },
     "tronweb": {
       "lodash": "4.18.1"
