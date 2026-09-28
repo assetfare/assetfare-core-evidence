@@ -23,7 +23,7 @@
   "devDependencies": {
     "@circle-fin/adapter-solana": "1.7.2",
     "@circle-fin/bridge-kit": "1.14.1",
-    "ganache": "7.9.2",
+    "hardhat": "3.18.0",
     "solc": "0.8.30"
   },
   "overrides": {
