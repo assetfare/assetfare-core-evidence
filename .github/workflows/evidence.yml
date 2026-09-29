@@ -29,6 +29,7 @@ jobs:
           node compile_source_only_cctp_executor_v2.mjs
           node compile_exact_one_bps_executors.mjs
           node compile_destination_executor_v3.mjs
+          node compile_xlayer_sei_sonic_cctp_executor.mjs
           git diff --exit-code -- artifacts/
       - name: Generate executable evidence and SBOM
         run: |

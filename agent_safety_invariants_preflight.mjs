@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Reproducible, offline evidence for AssetFare's six unique deployed executor
+ * Reproducible, offline evidence for AssetFare's seven unique deployed executor
  * implementations.  This is executable evidence, not an audit or a subjective
  * safety score.  It uses no key, RPC, signature, submission, or project API.
  */
@@ -11,6 +11,20 @@ import solc from 'solc';
 const ROOT = new URL('./', import.meta.url);
 const COMPILER = '0.8.30+commit.73712a01.Emscripten.clang';
 const SPECS = {
+  AssetFareXLayerSeiSonicCctpExecutorV1: {
+    functions: ['FEE_RECIPIENT','FORWARD_EXISTING_RECIPIENT','FORWARD_SETUP_HEAD','MAX_DEADLINE_WINDOW','ROUTE_FEE_BPS','SOURCE_DOMAIN','TOKEN_MESSENGER','USDC','bridgeUSDC'],
+    feeExpression: /routeFee=amountIn\/10_000/,
+    invariants: [
+      /\(block\.chainid==196&&sourceDomain==37\)/,
+      /\(block\.chainid==1329&&sourceDomain==16\)/,
+      /\(block\.chainid==146&&sourceDomain==13\)/,
+      /destinationDomain==5\|\|destinationDomain==6/,
+      /routeFee=amountIn\/10_000;burnUSDC=amountIn-routeFee/,
+      /maxCctpFee<=burnUSDC\/100/,
+      /_approve\(address\(TOKEN_MESSENGER\),0\)/,
+      /USDC\.balanceOf\(address\(this\)\)==beforeBalance/,
+    ],
+  },
   AssetFareExpansionCctpExecutorV2: {
     functions: ['FEE_RECIPIENT','FORWARD_EXISTING_RECIPIENT','FORWARD_SETUP_HEAD','MAX_DEADLINE_WINDOW','ROUTE_FEE_BPS','SOURCE_DOMAIN','TOKEN_MESSENGER','USDC','bridgeUSDC'],
     feeExpression: /routeFee=amountIn\/10_000/,
