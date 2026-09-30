@@ -8,6 +8,7 @@
     "across-message": "node across_destination_message_preflight.mjs"
   },
   "dependencies": {
+    "@aptos-labs/ts-sdk": "7.3.0",
     "@circle-fin/modular-wallets-core": "1.0.16",
     "@coral-xyz/anchor": "0.29.0",
     "@layerzerolabs/oft-v2-solana-sdk": "3.0.86",

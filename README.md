@@ -1,7 +1,8 @@
 # AssetFare execution-core evidence
 
-This public repository is a minimal, reproducible snapshot of the seven unique
-Solidity executor implementations deployed by AssetFare. It exists so an agent
+This public repository is a minimal, reproducible snapshot of the eleven unique
+Solidity executor implementations deployed by AssetFare plus the pinned Aptos
+Move script and compiled bytecode artifact. It exists so an agent
 can verify source hashes, rebuild artifacts, inspect executable invariants, and
 compare expected runtime code with the chain independently of the private API
 backend.
@@ -19,6 +20,12 @@ Layer, Sei and Sonic. It is ownerless, accepts only each chain's native USDC,
 restricts destinations to Base/Solana, enforces source-specific CCTP finality,
 collects exactly 1bp, bounds CCTP fees, and leaves zero retained allowance or
 USDC. The caller alone signs and submits.
+
+The public expansion also pins ownerless exact-1bp CCTP executors for Monad,
+Avalanche, Cronos, Injective and Linea. Aptos uses the pinned
+`AssetFareAptosCctpV1.move` script rather than a deployed AssetFare package;
+the caller receives unsigned BCS, verifies the bytecode hash, and signs and
+submits only in its own Aptos wallet.
 
 This repository is project-authored evidence. It is **not** an independent
 third-party audit, formal proof, or guarantee that no unknown defect exists.
@@ -40,6 +47,10 @@ node compile_source_only_cctp_executor_v2.mjs
 node compile_exact_one_bps_executors.mjs
 node compile_destination_executor_v3.mjs
 node compile_xlayer_sei_sonic_cctp_executor.mjs
+node compile_monad_avalanche_cctp_executor.mjs
+node compile_cronos_cctp_executor.mjs
+node compile_injective_cctp_executor.mjs
+node compile_linea_cctp_executor.mjs
 git diff --exit-code -- artifacts/
 node agent_safety_invariants_preflight.mjs
 ```
