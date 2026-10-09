@@ -1,6 +1,6 @@
 # AssetFare execution-core evidence
 
-This public repository is a minimal, reproducible snapshot of the eleven unique
+This public repository is a minimal, reproducible snapshot of the twelve unique
 Solidity executor implementations deployed by AssetFare plus the pinned Aptos
 Move script and compiled bytecode artifact. It exists so an agent
 can verify source hashes, rebuild artifacts, inspect executable invariants, and
@@ -22,7 +22,7 @@ collects exactly 1bp, bounds CCTP fees, and leaves zero retained allowance or
 USDC. The caller alone signs and submits.
 
 The public expansion also pins ownerless exact-1bp CCTP executors for Monad,
-Avalanche, Cronos, Injective and Linea. Aptos uses the pinned
+Avalanche, Cronos, Injective, Linea, Unichain and Ink. Aptos uses the pinned
 `AssetFareAptosCctpV1.move` script rather than a deployed AssetFare package;
 the caller receives unsigned BCS, verifies the bytecode hash, and signs and
 submits only in its own Aptos wallet.
@@ -51,6 +51,7 @@ node compile_monad_avalanche_cctp_executor.mjs
 node compile_cronos_cctp_executor.mjs
 node compile_injective_cctp_executor.mjs
 node compile_linea_cctp_executor.mjs
+node compile_unichain_ink_cctp_executor.mjs
 git diff --exit-code -- artifacts/
 node agent_safety_invariants_preflight.mjs
 ```
